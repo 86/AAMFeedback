@@ -87,17 +87,21 @@ static BOOL _alwaysUseMainBundle = NO;
     self.title = NSLocalizedStringFromTableInBundle(@"AAMFeedbackTitle", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil);
     if (self.topics == nil) {
         self.topics = @[
-            NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsQuestion", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
+//            NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsQuestion", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
             NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsRequest", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
             NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsBugReport", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
-            NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsMedia", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
-            NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsBusiness", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
+//            NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsMedia", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
+//            NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsBusiness", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil),
             NSLocalizedStringFromTableInBundle(@"AAMFeedbackTopicsOther", @"AAMLocalizable", [AAMFeedbackViewController bundle], nil)
         ];
     }
 
     self.topicsToSend = [self.topics copy];
     [self updateBackGroundImage];
+    
+    // Add tap gesture for closing keyboad
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeSoftKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
 }
 
 - (void)setBackgroundImage:(UIImage *) backgroundImage {
@@ -151,7 +155,8 @@ static BOOL _alwaysUseMainBundle = NO;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *) tableView {
-    return 2;
+//    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
@@ -163,7 +168,7 @@ static BOOL _alwaysUseMainBundle = NO;
 
 - (CGFloat)tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath {
     if (indexPath.section == 0 && indexPath.row == 1) {
-        return MAX(88, [self contentSizeOfTextView:_descriptionTextView].height);
+        return MAX(168, [self contentSizeOfTextView:_descriptionTextView].height);
     }
 
     return 44;
@@ -200,7 +205,7 @@ static BOOL _alwaysUseMainBundle = NO;
 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, 300,
-                    88)];
+                    168)];
                 _descriptionTextView.backgroundColor = [UIColor clearColor];
                 _descriptionTextView.font = [UIFont systemFontOfSize:16];
                 _descriptionTextView.delegate = self;
@@ -341,6 +346,13 @@ static BOOL _alwaysUseMainBundle = NO;
                didSelectTopicAtIndex:(NSInteger) selectedIndex {
     _selectedTopicsIndex = selectedIndex;
 }
+
+
+// close key board
+- (void)closeSoftKeyboard {
+    [self.view endEditing: YES];
+}
+
 
 #pragma mark - Internal Info
 // http://stackoverflow.com/questions/2798653/is-it-possible-to-determine-whether-viewcontroller-is-presented-as-modal

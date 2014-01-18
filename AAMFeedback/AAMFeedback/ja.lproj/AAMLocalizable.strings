@@ -6,19 +6,19 @@
   Copyright (c) 2011年 Art & Mobile. All rights reserved.
 */
 
-"AAMFeedbackTitle" = "フィードバック";
-"AAMFeedbackTopicsTitle" = "トピック";
+"AAMFeedbackTitle" = "要望/バグ報告";
+"AAMFeedbackTopicsTitle" = "カテゴリ";
 
 "AAMFeedbackButtonMail" = "メール";
-"AAMFeedbackDescriptionPlaceholder" = "詳細をお願いいたします。";
+"AAMFeedbackDescriptionPlaceholder" = "タップして詳細を入力";
 
 //Table Headers
-"AAMFeedbackTableHeaderTopics" = "入力事項";
+"AAMFeedbackTableHeaderTopics" = "";
 "AAMFeedbackTableHeaderBasicInfo" = "動作環境の情報";
 
 //Topics Options
 "AAMFeedbackTopicsQuestion" = "質問";
-"AAMFeedbackTopicsRequest" = "リクエスト";
+"AAMFeedbackTopicsRequest" = "要望";
 "AAMFeedbackTopicsBugReport" = "バグ報告";
 "AAMFeedbackTopicsMedia" = "マスメディア";
 "AAMFeedbackTopicsBusiness" = "ビジネス";
