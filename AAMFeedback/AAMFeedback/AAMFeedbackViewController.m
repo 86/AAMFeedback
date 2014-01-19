@@ -30,6 +30,9 @@ static BOOL _alwaysUseMainBundle = NO;
 - (NSString *)_selectedTopicToSend;
 
 - (void)_updatePlaceholder;
+
+@property (nonatomic) UITapGestureRecognizer *tapGesture;
+
 @end
 
 
@@ -98,10 +101,6 @@ static BOOL _alwaysUseMainBundle = NO;
 
     self.topicsToSend = [self.topics copy];
     [self updateBackGroundImage];
-    
-    // Add tap gesture for closing keyboad
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeSoftKeyboard)];
-    [self.view addGestureRecognizer:gestureRecognizer];
 }
 
 - (void)setBackgroundImage:(UIImage *) backgroundImage {
@@ -348,8 +347,24 @@ static BOOL _alwaysUseMainBundle = NO;
 }
 
 
-// close key board
-- (void)closeSoftKeyboard {
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    NSLog(@"textViewShouldBeginEditing");
+    if (!_tapGesture) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardWillHide)];
+        [self.view addGestureRecognizer:_tapGesture];
+    }
+    return YES;
+}
+
+-(BOOL)textViewShouldEndEditing:(UITextView*)textView {
+    NSLog(@"textViewShouldEndEditing");
+    [self.view removeGestureRecognizer:_tapGesture];
+    _tapGesture = nil;
+    return YES;
+}
+
+- (void)keyboardWillHide {
+    NSLog(@"keyboardWillHide");
     [self.view endEditing: YES];
 }
 
