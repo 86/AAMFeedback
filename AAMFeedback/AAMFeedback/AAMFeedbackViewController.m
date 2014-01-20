@@ -151,6 +151,12 @@ static BOOL _alwaysUseMainBundle = NO;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self resizeTextView];
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *) tableView {
@@ -210,6 +216,7 @@ static BOOL _alwaysUseMainBundle = NO;
                 _descriptionTextView.delegate = self;
                 _descriptionTextView.scrollEnabled = NO;
                 _descriptionTextView.text = self.descriptionText;
+                _descriptionTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
                 [cell.contentView addSubview:_descriptionTextView];
 
                 _descriptionPlaceHolder = [[UITextField alloc] initWithFrame:CGRectMake(16, 8, 300,
@@ -311,6 +318,10 @@ static BOOL _alwaysUseMainBundle = NO;
 
 
 - (void)textViewDidChange:(UITextView *) textView {
+    [self resizeTextView];
+}
+
+- (void)resizeTextView {
     //Magic for updating Cell height
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
@@ -320,7 +331,6 @@ static BOOL _alwaysUseMainBundle = NO;
     _descriptionTextView.frame = f;
     [self _updatePlaceholder];
     self.descriptionText = _descriptionTextView.text;
-
 }
 
 - (CGSize)contentSizeOfTextView:(UITextView *) myTextView {
@@ -348,7 +358,6 @@ static BOOL _alwaysUseMainBundle = NO;
 
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-//    NSLog(@"textViewShouldBeginEditing");
     if (!_tapGesture) {
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardWillHide)];
         [self.view addGestureRecognizer:_tapGesture];
@@ -357,14 +366,12 @@ static BOOL _alwaysUseMainBundle = NO;
 }
 
 -(BOOL)textViewShouldEndEditing:(UITextView*)textView {
-//    NSLog(@"textViewShouldEndEditing");
     [self.view removeGestureRecognizer:_tapGesture];
     _tapGesture = nil;
     return YES;
 }
 
 - (void)keyboardWillHide {
-//    NSLog(@"keyboardWillHide");
     [self.view endEditing: YES];
 }
 
