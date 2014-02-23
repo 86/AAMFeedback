@@ -95,7 +95,7 @@
     UITableViewCell *cell;
     cell = [self.tableView cellForRowAtIndexPath:path];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    cell.textLabel.textColor = [UIColor colorWithRed:51.0f / 255.0f green:102.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f];
+    cell.textLabel.textColor = [UIColor colorWithRed:0.28 green:0.30 blue:0.32 alpha:1.0];
     [cell setSelected:NO animated:YES];
 }
 
