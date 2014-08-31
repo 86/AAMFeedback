@@ -258,8 +258,8 @@
 				3D02637414861E3800FBC566 /* ViewController.h */,
 				3D02637514861E3800FBC566 /* ViewController.m */,
 				7386D147177D5C78003A3971 /* Storyboard.storyboard */,
-				17B5CD2D93C20C111AC25B07 /* FeedbackTableViewController.m */,
 				17B5C6B5FED237AD2069B8A4 /* FeedbackTableViewController.h */,
+				17B5CD2D93C20C111AC25B07 /* FeedbackTableViewController.m */,
 			);
 			name = SampleCode;
 			sourceTree = "<group>";
